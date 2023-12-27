@@ -1,44 +1,77 @@
-
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Your Page</title>
-    <!-- Add other head elements as needed -->
+    <title>PayPal Checkout</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+            transform: translateX(-50%) translateY(-50%);
+        }
+        .content {
+            z-index: 1;
+            text-align: center;
+            color: #fff;
+        }
+        h1 {
+            color: #fff;
+        }
+        .pay-now-text {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #fff;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-
-<!-- Your JSP content -->
-
-<button id="paypalCheckoutButton">Checkout with PayPal</button>
-
-<!-- Your other JSP content -->
-
-<script>
-    document.getElementById('paypalCheckoutButton').addEventListener('click', function () {
-        // Make an AJAX request to your backend servlet
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/paypal-checkout', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
-
-                if (response.approvalUrl) {
-                    // Redirect the user to the PayPal approval URL
-                    window.location.href = response.approvalUrl;
-                } else {
-                    // Handle the error
-                    console.error(response.error);
-                }
-            } else {
-                // Handle the error
-                console.error('Error triggering PayPal checkout');
-            }
-        };
-
-        xhr.send();
-    });
-</script>
-
+    <video autoplay muted loop>
+        <source src="food.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="content">
+        <h1>PayPal Checkout</h1>
+        <p class="pay-now-text">Pay now and get your goods today</p>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="business" value="your_paypal_email@example.com">
+            <input type="hidden" name="item_name" value="Product Name">
+            <input type="hidden" name="item_number" value="SKU123">
+            <input type="hidden" name="amount" value="100.00">
+            <input type="hidden" name="currency_code" value="USD">
+            <input type="hidden" name="return" value="http://www.example.com/success.html">
+            <input type="hidden" name="cancel_return" value="http://www.example.com/cancel.html">
+            <input type="submit" value="Pay with PayPal">
+        </form>
+    </div>
 </body>
 </html>
